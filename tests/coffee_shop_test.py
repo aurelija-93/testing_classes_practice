@@ -6,7 +6,13 @@ from src.food import Food
 
 class TestCoffeeShop(unittest.TestCase):
     def setUp(self):
-        self.coffee_shop = CoffeeShop("The Jitters", 100, ["Mocha", "Latte", "Hot chocolate", "Tea"], ["Bagel", "Sandwich", "Croissant", "Cake"])
+        self.coffee_shop = CoffeeShop("The Jitters", 100, {
+            "Mocha": 2,
+            "Latte": 3,
+            "Hot chocolate": 4,
+            "Tea": 5
+            },
+            ["Bagel", "Sandwich", "Croissant", "Cake"])
     def test_shop_has_name(self):
         self.assertEqual("The Jitters", self.coffee_shop.name)
     
@@ -14,7 +20,12 @@ class TestCoffeeShop(unittest.TestCase):
         self.assertEqual(100, self.coffee_shop.till)
 
     def test_shop_has_drinks(self):
-        self.assertEqual(["Mocha", "Latte", "Hot chocolate", "Tea"], self.coffee_shop.drinks)
+        self.assertEqual({
+            "Mocha": 2,
+            "Latte": 3,
+            "Hot chocolate": 4,
+            "Tea": 5
+            }, self.coffee_shop.drinks)
 
     def test_add_cash(self):
         self.coffee_shop.add_cash(3.95)
@@ -65,3 +76,9 @@ class TestCoffeeShop(unittest.TestCase):
         self.customer = Customer("Peter", 3.00, 45, 5)
         self.coffee_shop.sell_food(self.food, self.customer)
         self.assertEqual(100.00, self.coffee_shop.till)
+
+    def test_total_stock(self):
+        self.assertEqual(14, self.coffee_shop.total_stock())
+
+    def test_stock_value(self):
+        pass

@@ -23,3 +23,13 @@ class CoffeeShop:
         if customer.wallet >= food.price:
             customer.buy_food(food)
             self.add_cash(food.price)
+
+    def total_stock(self):
+        return sum(self.drinks.values())
+
+    # needs fixing
+    # def stock_value(self):
+    #     value = 0
+    #     for drink in self.drinks:
+    #         value += (drink.price * self.drinks.value)
+    #     return value
