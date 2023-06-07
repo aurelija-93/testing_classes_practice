@@ -6,8 +6,7 @@ from src.food import Food
 
 class TestCoffeeShop(unittest.TestCase):
     def setUp(self):
-        self.coffee_shop = CoffeeShop("The Jitters", 100, ["Mocha", "Latte", "Hot_chocolate", "Tea"])
-
+        self.coffee_shop = CoffeeShop("The Jitters", 100, ["Mocha", "Latte", "Hot chocolate", "Tea"], ["Bagel", "Sandwich", "Croissant", "Cake"])
     def test_shop_has_name(self):
         self.assertEqual("The Jitters", self.coffee_shop.name)
     
@@ -15,7 +14,7 @@ class TestCoffeeShop(unittest.TestCase):
         self.assertEqual(100, self.coffee_shop.till)
 
     def test_shop_has_drinks(self):
-        self.assertEqual(["Mocha", "Latte", "Hot_chocolate", "Tea"], self.coffee_shop.drinks)
+        self.assertEqual(["Mocha", "Latte", "Hot chocolate", "Tea"], self.coffee_shop.drinks)
 
     def test_add_cash(self):
         self.coffee_shop.add_cash(3.95)
@@ -53,4 +52,16 @@ class TestCoffeeShop(unittest.TestCase):
         self.drink = Drink("Latte", 4.15, 1)
         self.customer = Customer("Peter", 10.00, 45, 6)
         self.coffee_shop.sell_drink(self.drink, self.customer)
+        self.assertEqual(100.00, self.coffee_shop.till)
+
+    def test_sell_food__successful(self):
+        self.food = Food("Bagel", 4.50, 3)
+        self.customer = Customer("Peter", 10.00, 45, 5)
+        self.coffee_shop.sell_food(self.food, self.customer)
+        self.assertEqual(104.50, self.coffee_shop.till)
+
+    def test_sell_food__insufficient_funds(self):
+        self.food = Food("Bagel", 4.50, 3)
+        self.customer = Customer("Peter", 3.00, 45, 5)
+        self.coffee_shop.sell_food(self.food, self.customer)
         self.assertEqual(100.00, self.coffee_shop.till)
