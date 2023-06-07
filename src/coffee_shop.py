@@ -17,4 +17,3 @@ class CoffeeShop:
         if customer.wallet >= drink.price and self.check_age(customer) and self.check_energy(customer):
             customer.buy_drink(drink)
             self.add_cash(drink.price)
-        

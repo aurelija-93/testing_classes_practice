@@ -38,6 +38,18 @@ class TestCoffeeShop(unittest.TestCase):
 
     def test_sell_drink__insufficient_funds(self):
         self.drink = Drink("Latte", 4.15, 1)
-        self.customer = Customer("Peter", 10.00, 45, 5)
+        self.customer = Customer("Peter", 3.00, 45, 5)
         self.coffee_shop.sell_drink(self.drink, self.customer)
-        self.assertEqual(104.15, self.coffee_shop.till)
+        self.assertEqual(100, self.coffee_shop.till)
+
+    def test_sell_drink__age_too_low(self):
+        self.drink = Drink("Latte", 4.15, 1)
+        self.customer = Customer("Peter", 10.00, 15, 5)
+        self.coffee_shop.sell_drink(self.drink, self.customer)
+        self.assertEqual(100.00, self.coffee_shop.till)
+
+    def test_sell_drink__energy_too_high(self):
+        self.drink = Drink("Latte", 4.15, 1)
+        self.customer = Customer("Peter", 10.00, 45, 6)
+        self.coffee_shop.sell_drink(self.drink, self.customer)
+        self.assertEqual(100.00, self.coffee_shop.till)
